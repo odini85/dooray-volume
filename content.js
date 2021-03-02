@@ -18,6 +18,12 @@ const View = {
     sCont: null,
     profilesButton: null,
   },
+  data: {
+    mainVideo: {
+      width: "100%",
+      height: "100%",
+    },
+  },
   init() {
     this.handlerVolumeToggle = this.handlerVolumeToggle.bind(this);
     this.handlerProfilesToggle = this.handlerProfilesToggle.bind(this);
@@ -76,12 +82,27 @@ const View = {
     document.querySelector("audio").volume = e.target.value;
   },
   handlerVolumeToggle() {
-    this.elements.volumeButton.parentElement.classList.toggle("u_is--active");
-    this.elements.volumeButton.parentElement.classList.toggle("u_is--show");
+    const { volumeContainer } = this.elements;
+    volumeContainer.classList.toggle("u_is--active");
+    volumeContainer.classList.contains("u_is--show");
   },
   handlerProfilesToggle() {
-    this.elements.profilesButton.classList.toggle("u_is--active");
-    this.elements.sCont.classList.toggle("u_is--hidden-profiles");
+    const mainVideoWrapper = document.querySelector(".main-video-wrapper");
+    if (!mainVideoWrapper) {
+      return;
+    }
+    const { profilesButton, sCont } = this.elements;
+    profilesButton.classList.toggle("u_is--active");
+    sCont.classList.toggle("u_is--hidden-profiles");
+    if (profilesButton.classList.contains("u_is--active")) {
+      this.data.mainVideo.width = mainVideoWrapper.style.width;
+      this.data.mainVideo.height = mainVideoWrapper.style.height;
+      mainVideoWrapper.style.width = "";
+      mainVideoWrapper.style.height = "";
+    } else {
+      mainVideoWrapper.style.width = this.data.mainVideo.width;
+      mainVideoWrapper.style.height = this.data.mainVideo.height;
+    }
   },
 };
 
