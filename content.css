@@ -13,7 +13,7 @@
   bottom: calc(100% + 30px);
   transform: translateX(-50%);
 }
-.u_volume.u_is--show > input[type="range"] {
+.u_volume.u_is--active > input[type="range"] {
   display: block;
 }
 #app .screen.chgLayout div.sCon.u_is--hidden-profiles .lb.main-screen {

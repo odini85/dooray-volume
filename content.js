@@ -84,7 +84,6 @@ const View = {
   handlerVolumeToggle() {
     const { volumeContainer } = this.elements;
     volumeContainer.classList.toggle("u_is--active");
-    volumeContainer.classList.contains("u_is--show");
   },
   handlerProfilesToggle() {
     const mainVideoWrapper = document.querySelector(".main-video-wrapper");
