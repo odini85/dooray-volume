@@ -16,7 +16,6 @@ const View = {
     volumeContainer: null,
     volumeButton: null,
     sCont: null,
-    profilesButton: null,
   },
   data: {
     mainVideo: {
@@ -26,7 +25,6 @@ const View = {
   },
   init() {
     this.handlerVolumeToggle = this.handlerVolumeToggle.bind(this);
-    this.handlerProfilesToggle = this.handlerProfilesToggle.bind(this);
     this.handlerVolumeChange = this.handlerVolumeChange.bind(this);
 
     this.setElements();
@@ -57,25 +55,17 @@ const View = {
     volume.setAttribute("min", 0);
     volume.setAttribute("max", 1);
     this.elements.volume = volume;
-
-    // profiles
-    const profilesButton = document.createElement("li");
-    profilesButton.innerHTML = "<button>프로필 토글</button>";
-    profilesButton.setAttribute("class", "u_ctrl u_toggle_profiles");
-    this.elements.profilesButton = profilesButton;
   },
   injectUI() {
-    const { toolbarContainer, volumeContainer, profilesButton } = this.elements;
+    const { toolbarContainer, volumeContainer } = this.elements;
     const divLi = document.createElement("li");
     divLi.setAttribute("class", "vertical-divider");
     toolbarContainer.querySelector("li:first-child").before(divLi);
     toolbarContainer.querySelector("li:first-child").before(volumeContainer);
-    toolbarContainer.querySelector("li:first-child").before(profilesButton);
   },
   bindEvent() {
-    const { volumeButton, volume, profilesButton } = this.elements;
+    const { volumeButton, volume } = this.elements;
     volumeButton.addEventListener("click", this.handlerVolumeToggle);
-    profilesButton.addEventListener("click", this.handlerProfilesToggle);
     volume.addEventListener("change", this.handlerVolumeChange);
   },
   handlerVolumeChange(e) {
@@ -84,24 +74,6 @@ const View = {
   handlerVolumeToggle() {
     const { volumeContainer } = this.elements;
     volumeContainer.classList.toggle("u_is--active");
-  },
-  handlerProfilesToggle() {
-    const mainVideoWrapper = document.querySelector(".main-video-wrapper");
-    if (!mainVideoWrapper) {
-      return;
-    }
-    const { profilesButton, sCont } = this.elements;
-    profilesButton.classList.toggle("u_is--active");
-    sCont.classList.toggle("u_is--hidden-profiles");
-    if (profilesButton.classList.contains("u_is--active")) {
-      this.data.mainVideo.width = mainVideoWrapper.style.width;
-      this.data.mainVideo.height = mainVideoWrapper.style.height;
-      mainVideoWrapper.style.width = "";
-      mainVideoWrapper.style.height = "";
-    } else {
-      mainVideoWrapper.style.width = this.data.mainVideo.width;
-      mainVideoWrapper.style.height = this.data.mainVideo.height;
-    }
   },
 };
 
